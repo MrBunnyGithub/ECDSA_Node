@@ -24,18 +24,19 @@ app.get("/balance/:address", (req, res) => {
 });
 
 app.post("/send", (req, res) => {
-  //TODO: get a signature from client-side application
-  // recover the public address from signature
+
   const { sender, recipient, amount, signature, recoveryBit } = req.body; 
 
-  /* Bug Fix! If you are going to use this code please reference me, Mr Bunny & my GitHUb
+  /* Bug Fix 
 
-  When sending the signature Array from client to the server, the array is sent
-  in a json format, we must convert this to an array, and finally copy the array to a new
-  Uint8Array. If this isnt done this error message will occur:
+  If you are going to use this code please reference me, Mr Bunny & my GitHUb
 
-  TypeError: Signature.fromCompact: Expected string or Uint8Array
+  When sending the signature Array from client to the server, the array is converted to 
+  a json format, we must convert this to an array, and finally copy the array to a new
+  Uint8Array. 
   
+  If this isnt done this error message will occur:
+  TypeError: Signature.fromCompact: Expected string or Uint8Array
   */
 
   var newArray = [];       
