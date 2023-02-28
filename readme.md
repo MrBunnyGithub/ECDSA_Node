@@ -1,8 +1,8 @@
 ## ECDSA Node - Week 1 Project
 
-  If you are going to use this code please reference me, Mr Bunny & my GitHUb
-
   I have fixed the below bug:
+
+  If you are going to use this code please reference me, Mr Bunny & my GitHUb
   
   When sending the signature Array from client to the server, the array is converted to 
   a json format, we must convert this to an array, and finally copy the array to a new
