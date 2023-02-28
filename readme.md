@@ -1,7 +1,5 @@
 ## ECDSA Node - Week 1 Project
 
-  I have fixed the below bug:
-
   If you are going to use this code please reference me, Mr Bunny & my Github.
   
   Bug:
