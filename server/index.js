@@ -26,11 +26,30 @@ app.get("/balance/:address", (req, res) => {
 app.post("/send", (req, res) => {
   //TODO: get a signature from client-side application
   // recover the public address from signature
-  const { sender, recipient, amount, signature, recoveryBit } = req.body;
+  const { sender, recipient, amount, signature, recoveryBit } = req.body; 
 
-  msg = "Success";   
+  /* Bug Fix! If you are going to use this code please reference me, Mr Bunny & my GitHUb
 
-  if(checkSigned(sender, signature, recoveryBit, msg, res)) {
+  When sending the signature Array from client to the server, the array is sent
+  in a json format, we must convert this to an array, and finally copy the array to a new
+  Uint8Array. If this isnt done this error message will occur:
+
+  TypeError: Signature.fromCompact: Expected string or Uint8Array
+  
+  */
+
+  var newArray = [];       
+
+  for(var i in signature)
+    newArray.push(signature [i]);
+  
+  const newSignature = new Uint8Array(newArray);
+
+   // End Bug Fix
+
+  msg = "Success";  
+
+  if(checkSigned(sender, newSignature, recoveryBit, msg, res)) {
 
     setInitialBalance(sender);
     setInitialBalance(recipient);
@@ -73,21 +92,13 @@ async function checkSigned(sender, signature, recoveryBit, msg, res) {
   
   try {
 
-      /*      
-      (async () => {
-      privateKey = "39a4538e7225d063c6c84ddd55a29734c0c5e7acf32176071820d032f0f94d88";
-      const hash = hashMessage('Success');
-      const [signature, recoveryBit] =  await secp.sign(hash, privateKey,{recovered: true});
-      const recoverPublic = shortenPublicKey(secp.recoverPublicKey(hashMessage('Success'), signature, recoveryBit));
-      console.log(signature);
-      })();
-      */
-
-    const publicKey = shortenPublicKey(secp.recoverPublicKey(hashMessage("Success"), signature, recoveryBit));
-
-    res.status(400).send({ message: error });
+    const publicKey = shortenPublicKey(secp.recoverPublicKey(hashMessage(msg), signature, recoveryBit));
   
-    if (sender === publicKey) { return true; }
+    if (sender === publicKey) { 
+      return true; 
+    } else {
+      res.status(400).send({ message: "Signature not matching, not transfering." });
+    }
 
     return false
 
