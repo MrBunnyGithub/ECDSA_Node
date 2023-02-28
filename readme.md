@@ -21,8 +21,6 @@
     newArray.push(signature [i]);
   
     const newSignature = new Uint8Array(newArray);
-
-   // End Bug Fix
    
    Below is the standard Read Me
    
