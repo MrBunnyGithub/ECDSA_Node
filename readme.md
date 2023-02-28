@@ -9,19 +9,6 @@
   
   If this isnt done this error message will occur:
   TypeError: Signature.fromCompact: Expected string or Uint8Array
-  
-  Code:
-
-   app.post("/send", (req, res) => 
-   
-   const { sender, recipient, amount, signature, recoveryBit } = req.body; 
-    
-   var newArray = [];       
-
-   for(var i in signature)
-    newArray.push(signature [i]);
-  
-    const newSignature = new Uint8Array(newArray);
    
    Below is the standard Read Me
    
