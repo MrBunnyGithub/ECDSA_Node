@@ -1,4 +1,33 @@
-## ECDSA Node
+## ECDSA Node - Week 1 Project
+
+  If you are going to use this code please reference me, Mr Bunny & my GitHUb
+
+  I have fixed the below bug:
+  
+  When sending the signature Array from client to the server, the array is converted to 
+  a json format, we must convert this to an array, and finally copy the array to a new
+  Uint8Array. 
+  
+  If this isnt done this error message will occur:
+  TypeError: Signature.fromCompact: Expected string or Uint8Array
+
+   app.post("/send", (req, res) => 
+   
+   const { sender, recipient, amount, signature, recoveryBit } = req.body; 
+    
+   var newArray = [];       
+
+   for(var i in signature)
+    newArray.push(signature [i]);
+  
+    const newSignature = new Uint8Array(newArray);
+
+   // End Bug Fix
+   
+   Below is the standard Read Me
+   
+   ===============
+
 
 This project is an example of using a client and server to facilitate transfers between different addresses. Since there is just a single server on the back-end handling transfers, this is clearly very centralized. We won't worry about distributed consensus for this project.
 
