@@ -4,11 +4,13 @@
   
   Bug: When sending the signature Array from client to the server, 
        the array is converted to a json format.
+
+  Fix:  We must convert this to an array, and finally copy the array to a new Uint8Array. 
   
   If this isnt done this error message will occur:
   TypeError: Signature.fromCompact: Expected string or Uint8Array
   
-  Fix:  We must convert this to an array, and finally copy the array to a new Uint8Array. 
+  Code:
 
    app.post("/send", (req, res) => 
    
